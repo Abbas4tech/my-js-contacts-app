@@ -1,0 +1,21 @@
+.btn {
+  padding: 0.25rem 0.5rem;
+  background-color: var(--chocolate400);
+  color: #fff;
+  border-radius: 4px;
+  font-size: var(--text-sm);
+  outline: none;
+  border: none;
+  &:hover {
+    transform: translate(-4px, -4px);
+    transition: all 100ms;
+    cursor: pointer;
+    border-right: 4px solid #463f3a;
+    border-bottom: 4px solid #463f3a;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 0.5rem 1rem;
+    font-size: var(--text-md);
+  }
+}
