@@ -1,13 +1,11 @@
-const closeModalBtnClass = "close-modal";
+export const closeModalBtnClass = "close-modal";
 
 export function closeModal() {
   const modal = this.closest("dialog");
   modal.close();
 }
 
-export const openModal = (className) => {
-  const dialog = document.getElementsByClassName(className)[0];
+export const openModal = (id) => {
+  const dialog = document.getElementById(id);
   dialog.showModal();
-  const closeBtn = dialog.getElementsByClassName(closeModalBtnClass)[0];
-  closeBtn.addEventListener("click", closeModal);
 };
