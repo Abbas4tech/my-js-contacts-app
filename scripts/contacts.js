@@ -8,6 +8,9 @@ export function addContact(formdata) {
   refreshContacts();
 }
 
+
+
+
 export function refreshContacts() {
   const contactList = document.getElementById(contactListId);
   contactList.innerHTML = "";
