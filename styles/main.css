@@ -18,26 +18,61 @@
   --text-md: 16px;
   --text-lg: 20px;
   --text-xl: 24px;
+  --text-2xl: 30px;
+
+  --blue100: #e0aaff;
+  --blue200: #c77dff;
+  --blue300: #9d4edd;
+  --blue400: #7b2cbf;
+  --blue500: #5a189a;
+  --blue600: #3c096c;
+  --blue700: #240046;
+  --blue800: #240046;
 }
 
 header {
   display: flex;
-  padding: 0.5rem;
+  padding: 1rem;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--chocolate300);
+  background-color: var(--blue300);
   color: var(--glacier);
   font-size: var(--text-md);
-  height: 5rem;
+  height: 4rem;
   @media screen and (min-width: 768px) {
-    padding: 1rem;
+    padding: 1rem 2rem;
+    height: 5rem;
   }
 
   h3 {
     text-wrap: pretty;
-    font-size: var(--text-md);
+    font-size: var(--text-lg);
     @media screen and (min-width: 768px) {
-      font-size: var(--text-xl);
+      font-size: var(--text-2xl);
     }
   }
+}
+
+dialog {
+  position: relative;
+  margin: 5rem auto;
+  width: 90%;
+  max-width: 42rem;
+  border: none;
+  border-radius: 0.25rem;
+  animation: slide 500ms;
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateY(-5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
 }

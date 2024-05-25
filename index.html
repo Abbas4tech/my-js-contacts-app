@@ -5,13 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/common.css" />
-    <script src="scripts/app.js" defer></script>
+    <link rel="stylesheet" href="styles/form.css" />
+    <script src="/scripts/modal.js" type="module" defer></script>
+    <script src="/scripts/app.js" type="module" defer></script>
     <title>Document</title>
   </head>
   <body>
     <header>
       <h3>My Contacts</h3>
-      <button class="btn">Add Contacts</button>
+      <button id="add-contact-btn" class="btn">Add Contacts</button>
     </header>
+
+    <ul id="contact-list"></ul>
+
+    <dialog class="add-contact-form">
+      <section class="form">
+        <div class="form-element">
+          <label for="name">Name:</label>
+          <input type="text" placeholder="Enter your name" />
+        </div>
+        <button class="close-modal">Close</button>
+      </section>
+    </dialog>
   </body>
 </html>
