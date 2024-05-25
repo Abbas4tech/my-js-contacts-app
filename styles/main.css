@@ -14,20 +14,21 @@
   --darkChocolate: #344e41;
   --glacier: #fff;
 
-  --text-sm: 14px;
-  --text-md: 16px;
-  --text-lg: 20px;
-  --text-xl: 24px;
-  --text-2xl: 30px;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
 
-  --blue100: #e0aaff;
-  --blue200: #c77dff;
-  --blue300: #9d4edd;
-  --blue400: #7b2cbf;
-  --blue500: #5a189a;
-  --blue600: #3c096c;
-  --blue700: #240046;
-  --blue800: #240046;
+  --blue100: #caf0f8;
+  --blue200: #ade8f4;
+  --blue300: #90e0ef;
+  --blue400: #48cae4;
+  --blue500: #00b4d8;
+  --blue600: #0096c7;
+  --blue700: #0077b6;
+  --blue800: #023e8a;
+  --blue900: #03045e;
 }
 
 header {
@@ -35,7 +36,7 @@ header {
   padding: 1rem;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--blue300);
+  background-color: var(--blue700);
   color: var(--glacier);
   font-size: var(--text-md);
   height: 4rem;
@@ -74,5 +75,5 @@ dialog {
   }
 }
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
 }

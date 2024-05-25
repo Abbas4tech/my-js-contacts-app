@@ -1,4 +1,62 @@
 .form {
   background-color: var(--glacier);
   padding: 1rem;
+  color: var(--blue900);
+  @media screen and (min-width: 768px) {
+    padding: 2rem;
+    font-size: var(--text-lg);
+  }
+
+  .form-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    &:not(:first-child) {
+      margin-block: 1rem;
+    }
+    label {
+      display: inline-block;
+      font-weight: 600;
+      font-size: var(--text-md);
+      @media screen and (min-width: 768px) {
+        font-size: var(--text-lg);
+      }
+    }
+
+    input {
+      padding: 0.5rem;
+      outline: none;
+      border-radius: 0.25rem;
+      color: var(--blue900);
+      border: 1px solid var(--blue100);
+      font-size: var(--text-sm);
+      &:focus {
+        background-color: var(--blue100);
+        border: 1px solid var(--blue400);
+      }
+      @media screen and (min-width: 768px) {
+        font-size: var(--text-md);
+      }
+
+      &[type="radio"] {
+        display: inline-block;
+        padding: 0.25rem;
+        accent-color: var(--blue900);
+      }
+    }
+  }
+  .form-group {
+    display: flex;
+    gap: 1rem;
+    margin-block: 1rem;
+    .form-block {
+      flex-direction: row;
+      margin-block: 0;
+    }
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: flex-end;
 }
