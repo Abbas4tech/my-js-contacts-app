@@ -18,71 +18,67 @@ export function extractFormValues() {
   return data;
 }
 
+const createLabel = (text, htmlFor) => {
+  const label = document.createElement("label");
+  label.htmlFor = htmlFor;
+  label.textContent = text;
+  return label;
+};
+
+const createInput = (type, name, placeholder = "", fieldSetname) => {
+  const input = document.createElement("input");
+  input.type = type;
+  input.name = name;
+  input.setAttribute("aria-label", type === "radio" ? fieldSetname : name);
+  input.placeholder = placeholder;
+  return input;
+};
+
+const createFormBlock = (labelText, inputType, inputName, placeholder) => {
+  const formBlock = document.createElement("div");
+  formBlock.classList.add("form-block");
+  if (labelText) formBlock.append(createLabel(labelText, inputName));
+  formBlock.append(
+    createInput(inputType, inputName, placeholder, labelText.toLowerCase())
+  );
+  return formBlock;
+};
+
 const generateForm = (config) => {
   const dialog = document.createElement("dialog");
   dialog.id = config.id;
+
   const formParentContainer = document.createElement("section");
   formParentContainer.classList.add("form");
-  const fields = [...config.fields];
-  if (!fields) {
-    return;
-  }
-  fields.map((field) => {
+
+  config.fields?.forEach((field) => {
     if (field.fieldType === "single") {
-      const formBlock = document.createElement("div");
-      formBlock.classList.add("form-block");
-      if (field.label) {
-        const label = document.createElement("label");
-        label.for = field.name;
-        label.textContent = field.label;
-        formBlock.append(label);
-      }
-      if (field.type) {
-        const input = document.createElement("input");
-        input.type = field.type;
-        input.ariaLabel = field.name;
-        input.placeholder = field.placeholder || "";
-        formBlock.append(input);
-      }
-      formParentContainer.append(formBlock);
+      formParentContainer.append(
+        createFormBlock(field.label, field.type, field.name, field.placeholder)
+      );
     } else if (field.fieldType === "group") {
       const formGroup = document.createElement("div");
       formGroup.classList.add("form-group");
-      if (field.label) {
-        const label = document.createElement("label");
-        label.for = field.name;
-        label.textContent = field.label;
-        formGroup.append(label);
-      }
-      field.fieldSets?.map((fieldSet) => {
-        const formBlock = document.createElement("div");
-        formBlock.classList.add("form-block");
-        if (fieldSet.label) {
-          const label = document.createElement("label");
-          label.for = fieldSet.name;
-          label.textContent = fieldSet.label;
-          formBlock.append(label);
-        }
-        if (field.type) {
-          const input = document.createElement("input");
-          input.type = field.type;
-          input.name = field.name;
-          input.ariaLabel = fieldSet.name;
-          formBlock.append(input);
-        }
-        formGroup.append(formBlock);
+      if (field.label) formGroup.append(createLabel(field.label, field.name));
+
+      field.fieldSets?.forEach((fieldSet) => {
+        formGroup.append(
+          createFormBlock(fieldSet.label, field.type, field.name)
+        );
       });
       formParentContainer.append(formGroup);
     }
   });
+
   const footer = document.createElement("footer");
   footer.innerHTML = `
-  <button id="${config.cancelBtn.id}" class="close-modal btn">${config.cancelBtn.label}</button>
-  <button id="${config.submitBtn.id}" class="btn">${config.submitBtn.label}</button>
+    <button id="${config.cancelBtn.id}" class="close-modal btn">${config.cancelBtn.label}</button>
+    <button id="${config.submitBtn.id}" class="btn">${config.submitBtn.label}</button>
   `;
   formParentContainer.append(footer);
+
   dialog.append(formParentContainer);
-  document.getElementsByTagName("body")[0].append(dialog);
+  document.body.append(dialog);
 };
 
 export function clearInputs() {
