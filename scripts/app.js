@@ -12,6 +12,7 @@ const addContactBtnHandler = () => {
 
 function addContactSubmitHandler() {
   const formData = extractFormValues.call(this);
+  console.log(formData);
   addContact(formData);
   closeModal.call(this);
   clearInputs.call(this);

@@ -5,7 +5,12 @@ export function extractFormValues() {
   const addContactForm = this.closest("dialog");
   const inputs = addContactForm.getElementsByTagName("input");
   const data = Array.from(inputs).reduce((pre, cur) => {
-    pre[cur.getAttribute("aria-labelledby")] = cur.value;
+    if (cur.type === "radio") {
+      if (cur.checked) pre[cur.name] = cur.getAttribute("aria-labelledby");
+      else return pre;
+    } else {
+      pre[cur.getAttribute("aria-labelledby")] = cur.value;
+    }
     return pre;
   }, {});
   return data;
