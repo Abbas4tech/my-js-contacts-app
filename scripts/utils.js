@@ -1,6 +1,14 @@
 export const addContactFormConfig = {
   name: "add-contact",
   id: "add-contact-form",
+  cancelBtn: {
+    id: "cancel-add-btn",
+    label: "Cancel",
+  },
+  submitBtn: {
+    id: "submit-add-btn",
+    label: "Submit",
+  },
   fields: [
     {
       name: "firstname",
@@ -43,7 +51,6 @@ export const addContactFormConfig = {
       label: "",
       required: true,
       type: "radio",
-      placeholder: "Enter your last name",
       fieldType: "group",
       fieldSets: [
         {

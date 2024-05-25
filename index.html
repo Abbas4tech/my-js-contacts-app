@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/common.css" />
     <link rel="stylesheet" href="styles/form.css" />
+    <script src="scripts/utils.js" defer type="module"></script>
     <script src="scripts/contacts.js" defer type="module"></script>
     <script src="/scripts/form.js" defer type="module"></script>
     <script src="/scripts/modal.js" type="module" defer></script>
@@ -19,59 +20,5 @@
     </header>
 
     <ul id="contact-list"></ul>
-
-    <dialog id="add-contact-form">
-      <section class="form">
-        <div class="form-block">
-          <label for="firstname">First Name:</label>
-          <input
-            aria-labelledby="firstname"
-            type="text"
-            placeholder="Enter your first name"
-          />
-        </div>
-        <div class="form-block">
-          <label for="lastname">Last Name:</label>
-          <input
-            aria-labelledby="lastname"
-            type="text"
-            placeholder="Enter your last name"
-          />
-        </div>
-        <div class="form-block">
-          <label for="phone">Phone Number:</label>
-          <input
-            aria-labelledby="phone"
-            type="number"
-            placeholder="Enter your mobile number"
-          />
-        </div>
-        <div class="form-block">
-          <label for="email">Email</label>
-          <input
-            aria-labelledby="email"
-            type="email"
-            placeholder="Enter your email"
-          />
-        </div>
-
-        <div class="form-group">
-          <div class="form-block">
-            <label for="active">Active:</label>
-            <input aria-labelledby="active" name="status" type="radio" />
-          </div>
-
-          <div class="form-block">
-            <label for="inactive">Inactive</label>
-            <input aria-labelledby="inactive" name="status" type="radio" />
-          </div>
-        </div>
-
-        <footer>
-          <button id="cancel-add-btn" class="close-modal btn">Close</button>
-          <button id="submit-add-btn" class="btn">Submit</button>
-        </footer>
-      </section>
-    </dialog>
   </body>
 </html>
