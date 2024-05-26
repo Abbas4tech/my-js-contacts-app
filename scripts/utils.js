@@ -65,3 +65,71 @@ export const addContactFormConfig = {
     },
   ],
 };
+
+export const editContactFormConfig = {
+  name: "edit-contact",
+  id: "edit-contact-form",
+  cancelBtn: {
+    id: "cancel-edit-btn",
+    label: "Cancel",
+  },
+  submitBtn: {
+    id: "submit-edit-btn",
+    label: "Edit",
+  },
+  fields: [
+    {
+      name: "firstname",
+      label: "First Name",
+      required: true,
+      errorMessage: "First name is required",
+      type: "text",
+      placeholder: "Enter your first name",
+      fieldType: "single",
+    },
+    {
+      name: "lastname",
+      label: "Last Name",
+      required: true,
+      errorMessage: "Last name is required",
+      type: "text",
+      placeholder: "Enter your last name",
+      fieldType: "single",
+    },
+    {
+      name: "phone",
+      label: "Phone Number",
+      required: true,
+      errorMessage: "Phone number is required",
+      type: "number",
+      placeholder: "Enter your phone number",
+      fieldType: "single",
+    },
+    {
+      name: "email",
+      label: "Email",
+      required: true,
+      errorMessage: "Last name is required",
+      type: "text",
+      placeholder: "Enter your last name",
+      fieldType: "single",
+    },
+    {
+      name: "status",
+      label: "",
+      required: true,
+      type: "radio",
+      fieldType: "group",
+      fieldSets: [
+        {
+          name: "active",
+          label: "Active",
+        },
+        {
+          name: "inactive",
+          label: "Inactive",
+        },
+      ],
+    },
+  ],
+};

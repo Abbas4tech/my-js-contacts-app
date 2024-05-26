@@ -1,4 +1,4 @@
-import { addContactFormConfig } from "./utils.js";
+import { addContactFormConfig, editContactFormConfig } from "./utils.js";
 
 export const addContactFormId = "add-contact-form";
 
@@ -25,6 +25,17 @@ const createLabel = (text, htmlFor) => {
   label.textContent = text;
   return label;
 };
+
+export function setFormDataInFields(formData) {
+  const editForm = document.getElementById(editContactFormConfig.id);
+  Array.from(editForm.getElementsByTagName("input")).forEach((input) => {
+    if (formData.hasOwnProperty(input.name) && input.type !== "radio") {
+      input.value = formData[input.name];
+    } else {
+      formData[input.name] === input.ariaLabel ? (input.checked = true) : null;
+    }
+  });
+}
 
 const createInput = (type, name, placeholder = "", fieldSetname) => {
   const input = document.createElement("input");
@@ -94,3 +105,4 @@ export function clearInputs() {
 }
 
 generateForm(addContactFormConfig);
+generateForm(editContactFormConfig);

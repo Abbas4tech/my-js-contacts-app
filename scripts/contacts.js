@@ -1,3 +1,7 @@
+import { setFormDataInFields } from "./form.js";
+import { openModal } from "./modal.js";
+import { editContactFormConfig } from "./utils.js";
+
 const contactListId = "contact-list";
 
 let contacts = [];
@@ -37,7 +41,8 @@ export const createContactCard = (contact) => {
 function editContactBtnClickHandler() {
   const id = +this.getAttribute("data-contact-id");
   const editContactData = contacts.find((contact) => contact.id === id);
-  console.log(editContactData);
+  setFormDataInFields(editContactData);
+  openModal(editContactFormConfig.id);
 }
 
 export function refreshContacts() {
