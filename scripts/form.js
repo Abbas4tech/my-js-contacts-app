@@ -15,6 +15,7 @@ export function extractFormValues() {
     }
     return pre;
   }, {});
+  data.id = Math.random();
   return data;
 }
 
@@ -72,7 +73,7 @@ const generateForm = (config) => {
 
   const footer = document.createElement("footer");
   footer.innerHTML = `
-    <button id="${config.cancelBtn.id}" class="close-modal btn">${config.cancelBtn.label}</button>
+    <button id="${config.cancelBtn.id}" class="close-modal btn btn-secondary">${config.cancelBtn.label}</button>
     <button id="${config.submitBtn.id}" class="btn">${config.submitBtn.label}</button>
   `;
   formParentContainer.append(footer);

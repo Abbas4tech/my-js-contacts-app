@@ -1,5 +1,6 @@
 import { addContact } from "./contacts.js";
-import { addContactFormId, clearInputs, extractFormValues } from "./form.js";
+import { clearInputs, extractFormValues } from "./form.js";
+import { addContactFormConfig } from "./utils.js";
 import { closeModal, openModal } from "./modal.js";
 
 const addBtn = document.getElementById("add-contact-btn");
@@ -7,7 +8,7 @@ const addSubmitBtn = document.getElementById("submit-add-btn");
 const closeAddContactBtn = document.getElementById("cancel-add-btn");
 
 const addContactBtnHandler = () => {
-  openModal(addContactFormId);
+  openModal(addContactFormConfig.id);
 };
 
 function addContactSubmitHandler() {

@@ -1,28 +1,58 @@
 const contactListId = "contact-list";
 
-const contacts = [];
+let contacts = [];
 
 export function addContact(formdata) {
   if (!formdata) return;
   contacts.push(formdata);
+  localStorage.setItem("contacts", JSON.stringify(contacts));
   refreshContacts();
 }
 
+export const createContactCard = (contact) => {
+  const contactCard = document.createElement("li");
+  contactCard.classList.add("contact-item");
+  contactCard.innerHTML = `
+    <section class="user-image">
+      <img
+        src="https://api.dicebear.com/8.x/avataaars-neutral/svg"
+        alt="${contact.firstname}"
+      />
+    </section>
+    <div class="user-data">
+      <p>Name: ${contact.firstname} ${contact.lastname}</p>
+      <p>Email: ${contact.email}</p>
+      <p>Phone: ${contact.phone}</p>
+      <p class="status ${contact.status}">Status: ${contact.status}</p>
+      <footer>
+        <button id="edit-btn" data-contact-id="${contact.id}" class="btn btn-secondary edit-contact-btn">Edit</button>
+        <button class="btn btn-secondary">Delete</button>
+      </footer>
+    </div>
+  `;
 
+  return contactCard;
+};
 
+function editContactBtnClickHandler() {
+  const id = +this.getAttribute("data-contact-id");
+  const editContactData = contacts.find((contact) => contact.id === id);
+  console.log(editContactData);
+}
 
 export function refreshContacts() {
   const contactList = document.getElementById(contactListId);
   contactList.innerHTML = "";
   contacts.map((contact) => {
-    const contactCard = document.createElement("li");
-    contactCard.innerHTML = `
-      <h4>${contact.firstname}</h4>
-      <h4>${contact.lastname}</h4>
-      <h4>${contact.email}</h4>
-      <h4>${contact.phone}</h4>
-      `;
-
+    const contactCard = createContactCard(contact);
     contactList.append(contactCard);
   });
+  Array.from(document.getElementsByClassName("edit-contact-btn")).forEach(
+    (btn) => btn.addEventListener("click", editContactBtnClickHandler)
+  );
+}
+
+if (JSON.parse(localStorage.getItem("contacts"))) {
+  contacts = JSON.parse(localStorage.getItem("contacts"));
+  refreshContacts();
 }
