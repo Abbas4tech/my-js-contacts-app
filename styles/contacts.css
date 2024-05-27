@@ -10,10 +10,6 @@
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     gap: 1.5rem;
   }
-  @media screen and (min-width: 1280px) {
-    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
-    gap: 1.5rem;
-  }
 }
 
 .contact-item {
