@@ -6,14 +6,21 @@ const contactListId = "contact-list";
 
 let contacts = [];
 
-export function addContact(formdata) {
+export const addContact = (formdata) => {
   if (!formdata) return;
   contacts.push(formdata);
   localStorage.setItem("contacts", JSON.stringify(contacts));
   refreshContacts();
-}
+};
 
-export function updateContact(formData) {
+export const deleteContact = (id) => {
+  const contact = contacts.find((contact) => contact.id === id);
+  const contactCard = document.getElementById(`id-${id}`);
+  contactCard.remove();
+  contacts.splice(contacts.indexOf(contact), 1);
+};
+
+export const updateContact = (formData) => {
   const previousContactInfo = contacts.find(
     (contact) => contact.id === formData.id
   );
@@ -27,7 +34,7 @@ export function updateContact(formData) {
   }
   contacts.splice(contactPresentAt, 1, formData);
   localStorage.setItem("contacts", JSON.stringify(contacts));
-}
+};
 
 export const createContactCard = (contact) => {
   const contactCard = document.createElement("li");
@@ -45,7 +52,7 @@ export const createContactCard = (contact) => {
       </div>
       <footer>
         <button id="edit-btn" data-contact-id="${contact.id}" class="btn btn-secondary edit-contact-btn">Edit</button>
-        <button class="btn btn-secondary">Delete</button>
+        <button data-contact-id="${contact.id}" class="btn btn-secondary delete-contact-btn">Delete</button>
       </footer>
     </div>
   `;
@@ -73,7 +80,13 @@ function editContactBtnClickHandler() {
     .setAttribute("data-contact-id", id);
 }
 
-export function refreshContacts() {
+function deleteContactClickHandler() {
+  const id = +this.getAttribute("data-contact-id");
+  deleteContact(id);
+  localStorage.setItem("contacts", JSON.stringify(contacts));
+}
+
+export const refreshContacts = () => {
   const contactList = document.getElementById(contactListId);
   contactList.innerHTML = "";
   contacts.map((contact) => {
@@ -83,7 +96,10 @@ export function refreshContacts() {
   Array.from(document.getElementsByClassName("edit-contact-btn")).forEach(
     (btn) => btn.addEventListener("click", editContactBtnClickHandler)
   );
-}
+  Array.from(document.getElementsByClassName("delete-contact-btn")).forEach(
+    (contact) => contact.addEventListener("click", deleteContactClickHandler)
+  );
+};
 
 if (JSON.parse(localStorage.getItem("contacts"))) {
   contacts = JSON.parse(localStorage.getItem("contacts"));
