@@ -2,6 +2,7 @@ import { addContact, updateContact } from "./contacts.js";
 import { clearInputs, extractFormValues } from "./form.js";
 import { addContactFormConfig, editContactFormConfig } from "./utils.js";
 import { closeModal, openModal } from "./modal.js";
+import { registerServiceWorker } from "./service-worker.js";
 
 const addBtn = document.getElementById("add-contact-btn");
 const addSubmitBtn = document.getElementById(addContactFormConfig.submitBtn.id);
@@ -35,24 +36,6 @@ function closeModalHandler() {
   clearInputs.call(this);
   closeModal.call(this);
 }
-
-const registerServiceWorker = () => {
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () {
-      navigator.serviceWorker.register("/scripts/service-worker.js").then(
-        function (registration) {
-          console.log(
-            "ServiceWorker registration successful with scope: ",
-            registration.scope
-          );
-        },
-        function (err) {
-          console.log("ServiceWorker registration failed: ", err);
-        }
-      );
-    });
-  }
-};
 
 addBtn.addEventListener("click", addContactBtnHandler);
 addSubmitBtn.addEventListener(
