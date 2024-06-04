@@ -13,9 +13,17 @@ export function addContact(formdata) {
   refreshContacts();
 }
 
+export function updateContact(formData) {
+  const previousContactInfo = contacts.find(
+    (contact) => contact.id === formData.id
+  );
+  console.log(previousContactInfo, formData);
+}
+
 export const createContactCard = (contact) => {
   const contactCard = document.createElement("li");
   contactCard.classList.add("contact-item");
+  contactCard.id = contact.id;
   contactCard.innerHTML = `
     <section class="user-image">
       <img
@@ -43,6 +51,9 @@ function editContactBtnClickHandler() {
   const editContactData = contacts.find((contact) => contact.id === id);
   setFormDataInFields(editContactData);
   openModal(editContactFormConfig.id);
+  document
+    .querySelector(`dialog#${editContactFormConfig.id}`)
+    .setAttribute("data-contact-id", id);
 }
 
 export function refreshContacts() {

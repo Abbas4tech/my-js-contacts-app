@@ -15,7 +15,6 @@ export function extractFormValues() {
     }
     return pre;
   }, {});
-  data.id = Math.random();
   return data;
 }
 

@@ -1,4 +1,4 @@
-import { addContact } from "./contacts.js";
+import { addContact, updateContact } from "./contacts.js";
 import { clearInputs, extractFormValues } from "./form.js";
 import { addContactFormConfig, editContactFormConfig } from "./utils.js";
 import { closeModal, openModal } from "./modal.js";
@@ -11,15 +11,22 @@ const closeAddContactBtn = document.getElementById(
 const closeEditContactBtn = document.getElementById(
   editContactFormConfig.cancelBtn.id
 );
+const submitEditContactBtn = document.getElementById(
+  editContactFormConfig.submitBtn.id
+);
 
 const addContactBtnHandler = () => {
   openModal(addContactFormConfig.id);
 };
 
-function addContactSubmitHandler() {
+function handleSubmitContact(mode = "add") {
   const formData = extractFormValues.call(this);
+  formData.id =
+    mode === "add"
+      ? Math.random()
+      : +this.closest("dialog").getAttribute("data-contact-id");
   console.log(formData);
-  addContact(formData);
+  mode === "add" ? addContact(formData) : updateContact(formData);
   closeModal.call(this);
   clearInputs.call(this);
 }
@@ -48,7 +55,14 @@ const registerServiceWorker = () => {
 };
 
 addBtn.addEventListener("click", addContactBtnHandler);
-addSubmitBtn.addEventListener("click", addContactSubmitHandler);
+addSubmitBtn.addEventListener(
+  "click",
+  handleSubmitContact.bind(addSubmitBtn, "add")
+);
 closeAddContactBtn.addEventListener("click", closeModalHandler);
 closeEditContactBtn.addEventListener("click", closeModalHandler);
+submitEditContactBtn.addEventListener(
+  "click",
+  handleSubmitContact.bind(submitEditContactBtn, "edit")
+);
 registerServiceWorker();
