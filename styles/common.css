@@ -7,6 +7,9 @@
   outline: none;
   border: none;
   cursor: pointer;
+  &:hover {
+    background-color: var(--blue800);
+  }
 
   &.btn-secondary {
     background-color: var(--glacier);
