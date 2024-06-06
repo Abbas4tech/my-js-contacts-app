@@ -3,19 +3,23 @@ export const VALIDATORS = {
     const isValid = this.value.trim().length > 0;
     return isValid;
   },
+  maxNumberAllowed: function () {
+    const isNumbersOnly = !isNaN(Number(this.value));
+    if (!isNumbersOnly) return false;
+    const isValid = this.value.trim().length === 10;
+    return isValid;
+  },
 };
 
-const createErrorNode = (fieldConfig) => {
-  const span = document.createElement("span");
-  span.style.display = "block";
-  span.classList.add("error");
-  span.for = fieldConfig.name;
-  return span;
+const showValidationError = (inputElement, message) => {
+  const errorSpan = inputElement.nextElementSibling;
+  errorSpan.textContent = message;
+  errorSpan.classList.remove("d-none");
 };
 
 const removeErrorMessages = () =>
   document
-    .querySelectorAll("span.error")
+    .querySelectorAll("label.error")
     .forEach((node) => node.classList.add("d-none"));
 
 export function validateForm(config) {
@@ -40,8 +44,10 @@ export function validateForm(config) {
       fieldConfig.type !== "radio"
     ) {
       let result = false;
-      fieldValidators.forEach((validator) => {
-        result = validator.call(input);
+      fieldValidators.forEach(({ func, message }) => {
+        result = func.call(input);
+        console.log(result, message);
+        if (!result) showValidationError(input, message);
         validationListForAField.push(result);
       });
       formValidatorsArray.push(validationListForAField);

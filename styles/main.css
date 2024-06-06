@@ -9,6 +9,7 @@
 :root {
   --glacier: #fff;
 
+  --text-xsm: 0.65rem;
   --text-sm: 0.875rem;
   --text-md: 1rem;
   --text-lg: 1.25rem;

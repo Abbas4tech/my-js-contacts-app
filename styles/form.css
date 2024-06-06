@@ -14,12 +14,20 @@
     &:not(:first-child) {
       margin-block: 1rem;
     }
-    label {
+    label.form-label {
       display: inline-block;
       font-weight: 600;
       font-size: var(--text-md);
       @media screen and (min-width: 768px) {
         font-size: var(--text-lg);
+      }
+    }
+
+    label.error {
+      color: red;
+      font-size: var(--text-xsm);
+      @media screen and (min-width: 768px) {
+        font-size: var(--text-sm);
       }
     }
 

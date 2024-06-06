@@ -21,6 +21,7 @@ export function extractFormValues() {
 const createLabel = (text, htmlFor) => {
   const label = document.createElement("label");
   label.htmlFor = htmlFor;
+  label.classList.add("form-label");
   label.textContent = `${text} :`;
   return label;
 };

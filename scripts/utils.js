@@ -15,8 +15,12 @@ export const addContactFormConfig = {
       name: "firstname",
       label: "First Name",
       required: true,
-      validator: [VALIDATORS.required],
-      errorMessage: "First name is required",
+      validator: [
+        {
+          func: VALIDATORS.required,
+          message: "First name is required",
+        },
+      ],
       type: "text",
       placeholder: "Enter your first name",
       fieldType: "single",
@@ -25,8 +29,12 @@ export const addContactFormConfig = {
       name: "lastname",
       label: "Last Name",
       required: true,
-      validator: [VALIDATORS.required],
-      errorMessage: "Last name is required",
+      validator: [
+        {
+          func: VALIDATORS.required,
+          message: "Last name is required",
+        },
+      ],
       type: "text",
       placeholder: "Enter your last name",
       fieldType: "single",
@@ -35,7 +43,16 @@ export const addContactFormConfig = {
       name: "phone",
       label: "Phone Number",
       required: true,
-      validator: [VALIDATORS.required],
+      validator: [
+        {
+          func: VALIDATORS.maxNumberAllowed,
+          message: "Phone Should be of 10 Digits only",
+        },
+        {
+          func: VALIDATORS.required,
+          message: "Phone Number is required",
+        },
+      ],
       errorMessage: "Phone number is required",
       type: "number",
       placeholder: "Enter your phone number",
@@ -45,8 +62,12 @@ export const addContactFormConfig = {
       name: "email",
       label: "Email",
       required: true,
-      validator: [VALIDATORS.required],
-      errorMessage: "Last name is required",
+      validator: [
+        {
+          func: VALIDATORS.required,
+          message: "Email is required",
+        },
+      ],
       type: "email",
       placeholder: "Enter your last name",
       fieldType: "single",
