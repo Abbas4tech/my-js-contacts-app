@@ -17,7 +17,7 @@ export const VALIDATORS = {
   },
 };
 
-const showValidationError = (inputElement, message) => {
+export const showValidationError = (inputElement, message) => {
   const errorSpan = inputElement.nextElementSibling;
   if (errorSpan && inputElement.type !== "radio") {
     errorSpan.textContent = message;
@@ -30,53 +30,7 @@ const showValidationError = (inputElement, message) => {
   }
 };
 
-const removeErrorMessages = () =>
+export const removeErrorMessages = () =>
   document
     .querySelectorAll("label.error")
     .forEach((node) => node.classList.add("d-none"));
-
-export function validateForm(config) {
-  let formIsValid = false;
-  const form = this.closest("dialog");
-
-  if (!config) {
-    return formIsValid;
-  }
-  removeErrorMessages();
-  const inputs = Array.from(form.getElementsByTagName("input"));
-  const formValidatorsArray = [];
-  inputs.forEach((input) => {
-    const fieldConfig = config.fields.find(
-      (field) => field.name === input.name
-    );
-    const validationListForAField = [];
-    const fieldValidators = fieldConfig.validator;
-    if (
-      fieldValidators &&
-      fieldConfig.required &&
-      fieldConfig.fieldType === "single"
-    ) {
-      let result = false;
-      fieldValidators.forEach(({ func, message }) => {
-        result = func.call(input);
-        if (!result) showValidationError(input, message);
-        validationListForAField.push(result);
-      });
-      formValidatorsArray.push(validationListForAField);
-    } else {
-      let result = false;
-      fieldValidators.forEach(({ func, message }) => {
-        result = func.call(input);
-        if (result) {
-          validationListForAField.push(result);
-        } else {
-          showValidationError(input, message);
-          validationListForAField.push(result);
-        }
-      });
-      formValidatorsArray.push(validationListForAField);
-    }
-  });
-  formIsValid = formValidatorsArray.flat(Infinity).every((e) => e === true);
-  return formIsValid;
-}

@@ -1,4 +1,5 @@
 import { addContactFormConfig, editContactFormConfig } from "./utils.js";
+import { removeErrorMessages, showValidationError } from "./validators.js";
 
 export const addContactFormId = "add-contact-form";
 
@@ -121,6 +122,52 @@ export function clearInputs() {
       input.value = "";
     }
   });
+}
+
+export function validateForm(config) {
+  let formIsValid = false;
+  const form = this.closest("dialog");
+
+  if (!config) {
+    return formIsValid;
+  }
+  removeErrorMessages();
+  const inputs = Array.from(form.getElementsByTagName("input"));
+  const formValidatorsArray = [];
+  inputs.forEach((input) => {
+    const fieldConfig = config.fields.find(
+      (field) => field.name === input.name
+    );
+    const validationListForAField = [];
+    const fieldValidators = fieldConfig.validator;
+    if (
+      fieldValidators &&
+      fieldConfig.required &&
+      fieldConfig.fieldType === "single"
+    ) {
+      let result = false;
+      fieldValidators.forEach(({ func, message }) => {
+        result = func.call(input);
+        if (!result) showValidationError(input, message);
+        validationListForAField.push(result);
+      });
+      formValidatorsArray.push(validationListForAField);
+    } else {
+      let result = false;
+      fieldValidators.forEach(({ func, message }) => {
+        result = func.call(input);
+        if (result) {
+          validationListForAField.push(result);
+        } else {
+          showValidationError(input, message);
+          validationListForAField.push(result);
+        }
+      });
+      formValidatorsArray.push(validationListForAField);
+    }
+  });
+  formIsValid = formValidatorsArray.flat(Infinity).every((e) => e === true);
+  return formIsValid;
 }
 
 generateForm(addContactFormConfig);

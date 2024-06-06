@@ -1,9 +1,8 @@
 import { addContact, updateContact } from "./contacts.js";
-import { clearInputs, extractFormValues } from "./form.js";
+import { clearInputs, extractFormValues, validateForm } from "./form.js";
 import { addContactFormConfig, editContactFormConfig } from "./utils.js";
 import { closeModal, openModal } from "./modal.js";
 import { registerServiceWorker } from "./service-worker.js";
-import { validateForm } from "./validators.js";
 
 const addBtn = document.getElementById("add-contact-btn");
 const addSubmitBtn = document.getElementById(addContactFormConfig.submitBtn.id);
@@ -24,8 +23,11 @@ const addContactBtnHandler = () => {
 function handleSubmitContact(mode = "add") {
   const formData = extractFormValues.call(this);
   const config = mode === "add" ? addContactFormConfig : editContactFormConfig;
-  const isValidForm = validateForm.call(this, config);
-  if (isValidForm) {
+  try {
+    const isValidForm = validateForm.call(this, config);
+    if (!isValidForm) {
+      throw new Error("Form Validation Failed!!");
+    }
     formData.id =
       mode === "add"
         ? Math.random()
@@ -33,6 +35,8 @@ function handleSubmitContact(mode = "add") {
     mode === "add" ? addContact(formData) : updateContact(formData);
     closeModal.call(this);
     clearInputs.call(this);
+  } catch (error) {
+    console.error(error);
   }
 }
 
