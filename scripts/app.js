@@ -30,7 +30,6 @@ function handleSubmitContact(mode = "add") {
       mode === "add"
         ? Math.random()
         : +this.closest("dialog").getAttribute("data-contact-id");
-    console.log(formData);
     mode === "add" ? addContact(formData) : updateContact(formData);
     closeModal.call(this);
     clearInputs.call(this);

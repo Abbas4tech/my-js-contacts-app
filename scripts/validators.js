@@ -45,7 +45,6 @@ export function validateForm(config) {
   removeErrorMessages();
   const inputs = Array.from(form.getElementsByTagName("input"));
   const formValidatorsArray = [];
-  let ranForRadio = false;
   inputs.forEach((input) => {
     const fieldConfig = config.fields.find(
       (field) => field.name === input.name
@@ -79,6 +78,5 @@ export function validateForm(config) {
     }
   });
   formIsValid = formValidatorsArray.flat(Infinity).every((e) => e === true);
-  console.log(formIsValid, formValidatorsArray.flat(Infinity));
   return formIsValid;
 }
