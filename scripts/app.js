@@ -3,6 +3,7 @@ import { clearInputs, extractFormValues } from "./form.js";
 import { addContactFormConfig, editContactFormConfig } from "./utils.js";
 import { closeModal, openModal } from "./modal.js";
 import { registerServiceWorker } from "./service-worker.js";
+import { validateForm } from "./validators.js";
 
 const addBtn = document.getElementById("add-contact-btn");
 const addSubmitBtn = document.getElementById(addContactFormConfig.submitBtn.id);
@@ -22,14 +23,18 @@ const addContactBtnHandler = () => {
 
 function handleSubmitContact(mode = "add") {
   const formData = extractFormValues.call(this);
-  formData.id =
-    mode === "add"
-      ? Math.random()
-      : +this.closest("dialog").getAttribute("data-contact-id");
-  console.log(formData);
-  mode === "add" ? addContact(formData) : updateContact(formData);
-  closeModal.call(this);
-  clearInputs.call(this);
+  const config = mode === "add" ? addContactFormConfig : editContactFormConfig;
+  const isValidForm = validateForm.call(this, config);
+  if (isValidForm) {
+    formData.id =
+      mode === "add"
+        ? Math.random()
+        : +this.closest("dialog").getAttribute("data-contact-id");
+    console.log(formData);
+    mode === "add" ? addContact(formData) : updateContact(formData);
+    closeModal.call(this);
+    clearInputs.call(this);
+  }
 }
 
 function closeModalHandler() {

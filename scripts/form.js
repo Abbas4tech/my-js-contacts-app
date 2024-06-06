@@ -4,8 +4,8 @@ export const addContactFormId = "add-contact-form";
 
 export function extractFormValues() {
   if (!this) return {};
-  const addContactForm = this.closest("dialog");
-  const inputs = addContactForm.getElementsByTagName("input");
+  const form = this.closest("dialog");
+  const inputs = form.getElementsByTagName("input");
   const data = Array.from(inputs).reduce((pre, cur) => {
     if (cur.type === "radio") {
       if (cur.checked) pre[cur.name] = cur.getAttribute("aria-label");
@@ -36,6 +36,13 @@ export function setFormDataInFields(formData) {
   });
 }
 
+const createErrorLabel = (name) => {
+  const errorLabel = document.createElement("label");
+  errorLabel.htmlFor = name;
+  errorLabel.classList.add("d-none", "error");
+  return errorLabel;
+};
+
 const createInput = (type, name, placeholder = "", fieldSetname) => {
   const input = document.createElement("input");
   input.type = type;
@@ -64,9 +71,17 @@ const generateForm = (config) => {
 
   config.fields?.forEach((field) => {
     if (field.fieldType === "single") {
-      formParentContainer.append(
-        createFormBlock(field.label, field.type, field.name, field.placeholder)
+      const formBlock = createFormBlock(
+        field.label,
+        field.type,
+        field.name,
+        field.placeholder
       );
+      formParentContainer.append(formBlock);
+      if (field.required) {
+        const errorSpan = createErrorLabel(field.name);
+        formBlock.append(errorSpan);
+      }
     } else if (field.fieldType === "group") {
       const formGroup = document.createElement("div");
       formGroup.classList.add("form-group");
@@ -77,6 +92,10 @@ const generateForm = (config) => {
           createFormBlock(fieldSet.label, field.type, field.name)
         );
       });
+      if (field.required) {
+        const errorSpan = createErrorLabel(field.name);
+        formGroup.append(errorSpan);
+      }
       formParentContainer.append(formGroup);
     }
   });

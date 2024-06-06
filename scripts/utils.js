@@ -1,3 +1,4 @@
+import { VALIDATORS } from "./validators.js";
 export const addContactFormConfig = {
   name: "add-contact",
   id: "add-contact-form",
@@ -14,6 +15,7 @@ export const addContactFormConfig = {
       name: "firstname",
       label: "First Name",
       required: true,
+      validator: [VALIDATORS.required],
       errorMessage: "First name is required",
       type: "text",
       placeholder: "Enter your first name",
@@ -23,6 +25,7 @@ export const addContactFormConfig = {
       name: "lastname",
       label: "Last Name",
       required: true,
+      validator: [VALIDATORS.required],
       errorMessage: "Last name is required",
       type: "text",
       placeholder: "Enter your last name",
@@ -32,6 +35,7 @@ export const addContactFormConfig = {
       name: "phone",
       label: "Phone Number",
       required: true,
+      validator: [VALIDATORS.required],
       errorMessage: "Phone number is required",
       type: "number",
       placeholder: "Enter your phone number",
@@ -41,8 +45,9 @@ export const addContactFormConfig = {
       name: "email",
       label: "Email",
       required: true,
+      validator: [VALIDATORS.required],
       errorMessage: "Last name is required",
-      type: "text",
+      type: "email",
       placeholder: "Enter your last name",
       fieldType: "single",
     },
@@ -50,6 +55,7 @@ export const addContactFormConfig = {
       name: "status",
       label: "",
       required: true,
+      validator: [VALIDATORS.required],
       type: "radio",
       fieldType: "group",
       fieldSets: [
