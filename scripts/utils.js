@@ -53,7 +53,6 @@ export const addContactFormConfig = {
           message: "Phone Number is required",
         },
       ],
-      errorMessage: "Phone number is required",
       type: "number",
       placeholder: "Enter your phone number",
       fieldType: "single",
@@ -76,7 +75,12 @@ export const addContactFormConfig = {
       name: "status",
       label: "",
       required: true,
-      validator: [VALIDATORS.required],
+      validator: [
+        {
+          func: VALIDATORS.requiredWithRadio,
+          message: "Please select status of contact",
+        },
+      ],
       type: "radio",
       fieldType: "group",
       fieldSets: [

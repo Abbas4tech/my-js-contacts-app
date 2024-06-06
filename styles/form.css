@@ -55,12 +55,21 @@
   }
   .form-group {
     display: flex;
-    gap: 1rem;
     margin-block: 1rem;
+    column-gap: 1rem;
+    align-items: center;
+    row-gap: 0.5rem;
     flex-wrap: wrap;
     .form-block {
       flex-direction: row;
       margin-block: 0;
+    }
+  }
+  label.error {
+    color: red;
+    font-size: var(--text-xsm);
+    @media screen and (min-width: 768px) {
+      font-size: var(--text-sm);
     }
   }
 }
