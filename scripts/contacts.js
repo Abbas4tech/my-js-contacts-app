@@ -9,8 +9,16 @@ let contacts = [];
 export const addContact = (formdata) => {
   if (!formdata) return;
   contacts.push(formdata);
+  const contactList = document.getElementById(contactListId);
+  const contactCard = createContactCard(formdata);
+  contactList.append(contactCard);
+  contactCard
+    .querySelector(".edit-contact-btn")
+    .addEventListener("click", editContactBtnClickHandler);
+  contactCard
+    .querySelector(".delete-contact-btn")
+    .addEventListener("click", deleteContactClickHandler);
   localStorage.setItem("contacts", JSON.stringify(contacts));
-  refreshContacts();
 };
 
 export const deleteContact = (id) => {
