@@ -152,7 +152,7 @@ export function validateForm(config) {
         validationListForAField.push(result);
       });
       formValidatorsArray.push(validationListForAField);
-    } else {
+    } else if (fieldConfig.fieldType === "group" && fieldConfig.required) {
       let result = false;
       fieldValidators.forEach(({ func, message }) => {
         result = func.call(input);

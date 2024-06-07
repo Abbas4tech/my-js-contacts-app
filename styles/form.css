@@ -12,14 +12,17 @@
     flex-direction: column;
     gap: 0.5rem;
     &:not(:first-child) {
-      margin-block: 1rem;
+      margin-block: 0.5rem;
+      @media screen and (min-width: 768px) {
+        margin-block: 1rem;
+      }
     }
     label.form-label {
       display: inline-block;
       font-weight: 600;
-      font-size: var(--text-md);
+      font-size: var(--text-sm);
       @media screen and (min-width: 768px) {
-        font-size: var(--text-lg);
+        font-size: var(--text-md);
       }
     }
 
@@ -32,7 +35,7 @@
     }
 
     input {
-      padding: 0.5rem;
+      padding: 0.35rem;
       outline: none;
       border-radius: 0.25rem;
       color: var(--blue900);
@@ -43,7 +46,8 @@
         border: 1px solid var(--blue400);
       }
       @media screen and (min-width: 768px) {
-        font-size: var(--text-md);
+        font-size: var(--text-sm);
+        padding: 0.5rem;
       }
 
       &[type="radio"] {
