@@ -1,3 +1,7 @@
+import { getCookie, setCookie } from "./cookie-service.js";
+import { closeModal, openModal } from "./modal.js";
+import { PWAConsentModalConfig } from "./utils.js";
+
 // Service worker version
 const CACHE_NAME = "cached-scripts-styles-and-assests";
 const urlsToCache = [
@@ -60,3 +64,43 @@ export const registerServiceWorker = () => {
     });
   }
 };
+
+let deferredPrompt;
+const installButton = document.getElementById(
+  PWAConsentModalConfig.submitBtn.id
+);
+
+// Listen for the beforeinstallprompt event
+window.addEventListener("beforeinstallprompt", (event) => {
+  console.log("beforeinstallprompt event fired");
+  // Prevent the mini-infobar from appearing on mobile
+  event.preventDefault();
+  // Stash the event so it can be triggered later
+  deferredPrompt = event;
+  // Show the install notification
+  const isPreviouslyDisplayed = getCookie("pwaConsentDisplayed") === "true";
+  console.log(isPreviouslyDisplayed);
+  if (!isPreviouslyDisplayed) {
+    setTimeout(() => {
+      openModal(PWAConsentModalConfig.id);
+    }, 10000);
+  } else {
+    console.log("PWA Popup was shown!!");
+  }
+});
+
+// Listen for the install button click event
+installButton.addEventListener("click", function () {
+  closeModal.call(this);
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === "accepted") {
+      console.log("User accepted the install prompt");
+      setCookie("pwaConsent", "true", 30);
+    } else {
+      console.log("User dismissed the install prompt");
+    }
+    setCookie("pwaConsentDisplayed", "true", 1);
+    deferredPrompt = null;
+  });
+});

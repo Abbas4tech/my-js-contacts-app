@@ -110,3 +110,16 @@ export const editContactFormConfig = {
   },
   fields: [...addContactFormConfig.fields],
 };
+
+export const PWAConsentModalConfig = {
+  id: "pwa-modal-config-modal",
+  type: "info",
+  heading: "Install Our App!",
+  description: "Install this app on your device for a better experience.",
+  submitBtn: {
+    label: "Install",
+    id: "pwa-install-btn",
+    type: "primary",
+  },
+  canCancel: false,
+};
