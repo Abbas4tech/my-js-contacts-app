@@ -125,49 +125,26 @@ export function clearInputs() {
 }
 
 export function validateForm(config) {
-  let formIsValid = false;
   const form = this.closest("dialog");
-
-  if (!config) {
-    return formIsValid;
-  }
+  if (!config) return false;
   removeErrorMessages();
-  const inputs = Array.from(form.getElementsByTagName("input"));
-  const formValidatorsArray = [];
-  inputs.forEach((input) => {
+  const inputs = [...form.querySelectorAll("input")];
+  const formValidatorsArray = inputs.map((input) => {
     const fieldConfig = config.fields.find(
       (field) => field.name === input.name
     );
-    const validationListForAField = [];
-    const fieldValidators = fieldConfig.validator;
-    if (
-      fieldValidators &&
-      fieldConfig.required &&
-      fieldConfig.fieldType === "single"
-    ) {
-      let result = false;
-      fieldValidators.forEach(({ func, message }) => {
-        result = func.call(input);
+    if (!fieldConfig || !fieldConfig.required) return true;
+
+    const validationListForAField = fieldConfig.validator.map(
+      ({ func, message }) => {
+        const result = func.call(input);
         if (!result) showValidationError(input, message);
-        validationListForAField.push(result);
-      });
-      formValidatorsArray.push(validationListForAField);
-    } else if (fieldConfig.fieldType === "group" && fieldConfig.required) {
-      let result = false;
-      fieldValidators.forEach(({ func, message }) => {
-        result = func.call(input);
-        if (result) {
-          validationListForAField.push(result);
-        } else {
-          showValidationError(input, message);
-          validationListForAField.push(result);
-        }
-      });
-      formValidatorsArray.push(validationListForAField);
-    }
+        return result;
+      }
+    );
+    return validationListForAField;
   });
-  formIsValid = formValidatorsArray.flat(Infinity).every((e) => e === true);
-  return formIsValid;
+  return formValidatorsArray.flat().every(Boolean);
 }
 
 generateForm(addContactFormConfig);
