@@ -7,16 +7,14 @@ export function extractFormValues() {
   if (!this) return {};
   const form = this.closest("dialog");
   const inputs = form.getElementsByTagName("input");
-  const data = Array.from(inputs).reduce((pre, cur) => {
+  return Array.from(inputs).reduce((pre, cur) => {
     if (cur.type === "radio") {
       if (cur.checked) pre[cur.name] = cur.getAttribute("aria-label");
-      else return pre;
     } else {
       pre[cur.getAttribute("aria-label")] = cur.value;
     }
     return pre;
   }, {});
-  return data;
 }
 
 const createLabel = (text, htmlFor) => {
