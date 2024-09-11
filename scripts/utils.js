@@ -1,4 +1,16 @@
 import { VALIDATORS } from "./validators.js";
+
+export const convertLastWordToSmall = (str) => {
+  const words = str.split(" ");
+  if (words.length === 1) {
+    return str;
+  }
+  const lastWord = words[words.length - 1];
+  words[words.length - 1] =
+    lastWord.charAt(0).toLowerCase() + lastWord.slice(1);
+  return words.join(" ");
+};
+
 export const addContactFormConfig = {
   name: "add-contact",
   id: "add-contact-form",
@@ -15,12 +27,7 @@ export const addContactFormConfig = {
       name: "firstname",
       label: "First Name",
       required: true,
-      validator: [
-        {
-          func: VALIDATORS.required,
-          message: "First name is required",
-        },
-      ],
+      validator: [],
       type: "text",
       placeholder: "Enter your first name",
       fieldType: "single",
@@ -29,12 +36,7 @@ export const addContactFormConfig = {
       name: "lastname",
       label: "Last Name",
       required: true,
-      validator: [
-        {
-          func: VALIDATORS.required,
-          message: "Last name is required",
-        },
-      ],
+      validator: [],
       type: "text",
       placeholder: "Enter your last name",
       fieldType: "single",
@@ -48,10 +50,6 @@ export const addContactFormConfig = {
           func: VALIDATORS.maxNumberAllowed,
           message: "Phone Should be of 10 Digits only",
         },
-        {
-          func: VALIDATORS.required,
-          message: "Phone Number is required",
-        },
       ],
       type: "number",
       placeholder: "Enter your phone number",
@@ -61,12 +59,7 @@ export const addContactFormConfig = {
       name: "email",
       label: "Email",
       required: true,
-      validator: [
-        {
-          func: VALIDATORS.required,
-          message: "Email is required",
-        },
-      ],
+      validator: [],
       type: "email",
       placeholder: "Enter your last name",
       fieldType: "single",
@@ -75,12 +68,7 @@ export const addContactFormConfig = {
       name: "status",
       label: "",
       required: true,
-      validator: [
-        {
-          func: VALIDATORS.requiredWithRadio,
-          message: "Please select status of contact",
-        },
-      ],
+      validator: [],
       type: "radio",
       fieldType: "group",
       fieldSets: [

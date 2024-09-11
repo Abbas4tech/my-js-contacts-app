@@ -1,5 +1,13 @@
-import { addContactFormConfig, editContactFormConfig } from "./utils.js";
-import { removeErrorMessages, showValidationError } from "./validators.js";
+import {
+  addContactFormConfig,
+  convertLastWordToSmall,
+  editContactFormConfig,
+} from "./utils.js";
+import {
+  removeErrorMessages,
+  showValidationError,
+  VALIDATORS,
+} from "./validators.js";
 
 export const addContactFormId = "add-contact-form";
 
@@ -133,13 +141,27 @@ export function validateForm(config) {
     );
     if (!fieldConfig || !fieldConfig.required) return true;
 
-    const validationListForAField = fieldConfig.validator.map(
-      ({ func, message }) => {
-        const result = func.call(input);
-        if (!result) showValidationError(input, message);
-        return result;
-      }
-    );
+    const validators = fieldConfig.required
+      ? [
+          ...(fieldConfig.validator || []),
+          fieldConfig.fieldType === "single"
+            ? {
+                func: VALIDATORS.required,
+                message: `${convertLastWordToSmall(
+                  fieldConfig.label
+                )} is required!`,
+              }
+            : {
+                func: VALIDATORS.requiredWithRadio,
+                message: `Please select ${fieldConfig.name} of contact`,
+              },
+        ]
+      : fieldConfig.validator;
+    const validationListForAField = validators.map(({ func, message }) => {
+      const result = func.call(input);
+      if (!result) showValidationError(input, message);
+      return result;
+    });
     return validationListForAField;
   });
   return formValidatorsArray.flat().every(Boolean);
