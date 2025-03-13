@@ -1,0 +1,22 @@
+header {
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--blue700);
+  color: var(--glacier);
+  font-size: var(--text-md);
+  height: 4rem;
+  @media screen and (min-width: 768px) {
+    padding: 1rem 2rem;
+    height: 5rem;
+  }
+
+  h3 {
+    text-wrap: pretty;
+    font-size: var(--text-lg);
+    @media screen and (min-width: 768px) {
+      font-size: var(--text-2xl);
+    }
+  }
+}

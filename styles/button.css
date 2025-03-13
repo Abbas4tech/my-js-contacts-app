@@ -25,7 +25,3 @@
     font-size: var(--text-md);
   }
 }
-
-.d-none {
-  display: none !important;
-}

@@ -1,8 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
-@import "common.css";
+
+@import "variables.css";
+@import "button.css";
+@import "header.css";
 @import "form.css";
 @import "contacts.css";
 @import "modal.css";
+
 * {
   margin: 0;
   padding: 0;
@@ -10,70 +14,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-:root {
-  --glacier: #fff;
-
-  --text-xsm: 0.65rem;
-  --text-sm: 0.875rem;
-  --text-md: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.5rem;
-  --text-2xl: 1.875rem;
-
-  --blue100: #caf0f8;
-  --blue200: #ade8f4;
-  --blue300: #90e0ef;
-  --blue400: #48cae4;
-  --blue500: #00b4d8;
-  --blue600: #0096c7;
-  --blue700: #0077b6;
-  --blue800: #023e8a;
-  --blue900: #03045e;
-}
-
-header {
-  display: flex;
-  padding: 1rem;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--blue700);
-  color: var(--glacier);
-  font-size: var(--text-md);
-  height: 4rem;
-  @media screen and (min-width: 768px) {
-    padding: 1rem 2rem;
-    height: 5rem;
-  }
-
-  h3 {
-    text-wrap: pretty;
-    font-size: var(--text-lg);
-    @media screen and (min-width: 768px) {
-      font-size: var(--text-2xl);
-    }
-  }
-}
-
-dialog {
-  position: relative;
-  margin: 5rem auto;
-  width: 90%;
-  max-width: 42rem;
-  border: none;
-  border-radius: 0.25rem;
-  animation: slide 500ms;
-}
-
-@keyframes slide {
-  from {
-    opacity: 0;
-    transform: translateY(-5rem);
-  }
-  to {
-    opacity: 1;
-    transform: translate(0);
-  }
-}
-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.75);
+.d-none {
+  display: none !important;
 }
